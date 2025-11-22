@@ -1,0 +1,267 @@
+/* EcoTech Hub - Modern Green Theme CSS */
+
+:root {
+    --primary-green: #2d6a4f;
+    --light-green: #52b788;
+    --dark-green: #1b4332;
+    --accent-green: #95d5b2;
+    --text-dark: #212529;
+    --text-light: #6c757d;
+    --bg-light: #f8f9fa;
+}
+
+/* Global Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--text-dark);
+}
+
+/* Bootstrap Overrides for Green Theme */
+.bg-primary {
+    background-color: var(--primary-green) !important;
+}
+
+.btn-primary {
+    background-color: var(--primary-green);
+    border-color: var(--primary-green);
+}
+
+.btn-primary:hover {
+    background-color: var(--dark-green);
+    border-color: var(--dark-green);
+}
+
+.btn-success {
+    background-color: var(--light-green);
+    border-color: var(--light-green);
+}
+
+.btn-success:hover {
+    background-color: var(--primary-green);
+    border-color: var(--primary-green);
+}
+
+.text-primary {
+    color: var(--primary-green) !important;
+}
+
+.text-success {
+    color: var(--light-green) !important;
+}
+
+/* Navigation */
+.navbar {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.navbar-brand i {
+    margin-right: 5px;
+}
+
+/* Hero Section */
+.hero-section {
+    padding: 80px 0;
+    background: linear-gradient(135deg, var(--accent-green) 0%, var(--light-green) 100%);
+}
+
+.hero-image {
+    text-align: center;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+}
+
+/* Feature Boxes */
+.features-section {
+    background-color: var(--bg-light);
+}
+
+.feature-box {
+    padding: 30px;
+    transition: transform 0.3s ease;
+}
+
+.feature-box:hover {
+    transform: translateY(-10px);
+}
+
+/* Category Cards */
+.category-card {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.category-card:hover {
+    transform: scale(1.05);
+}
+
+.category-card .card {
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.category-card:hover .card {
+    border-color: var(--primary-green);
+    box-shadow: 0 5px 15px rgba(45, 106, 79, 0.2);
+}
+
+/* Product Cards */
+.product-card {
+    transition: all 0.3s ease;
+    border: 1px solid #e0e0e0;
+}
+
+.product-card:hover {
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    transform: translateY(-5px);
+}
+
+.product-card .card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+.hover-shadow:hover {
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+/* Badges */
+.badge {
+    padding: 0.5em 0.8em;
+    font-weight: 500;
+}
+
+/* Footer */
+footer {
+    background-color: #212529 !important;
+}
+
+footer a {
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: var(--light-green) !important;
+}
+
+.social-links a {
+    transition: transform 0.3s ease;
+    display: inline-block;
+}
+
+.social-links a:hover {
+    transform: scale(1.2);
+}
+
+/* Forms */
+.form-control {
+    border-radius: 8px;
+    border: 1px solid #ced4da;
+    padding: 0.75rem 1rem;
+}
+
+.form-control:focus {
+    border-color: var(--primary-green);
+    box-shadow: 0 0 0 0.2rem rgba(45, 106, 79, 0.25);
+}
+
+.form-check-input:checked {
+    background-color: var(--primary-green);
+    border-color: var(--primary-green);
+}
+
+/* Cards */
+.card {
+    border-radius: 12px;
+    border: 1px solid #e0e0e0;
+}
+
+.card-header {
+    border-radius: 12px 12px 0 0 !important;
+}
+
+/* Buttons */
+.btn {
+    border-radius: 8px;
+    padding: 0.5rem 1.5rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* CTA Section */
+.cta-section {
+    background: linear-gradient(135deg, var(--primary-green) 0%, var(--dark-green) 100%);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 40px 0;
+    }
+
+    .hero-section h1 {
+        font-size: 2rem;
+    }
+}
+
+/* Environmental Rating Stars */
+.environmental-rating {
+    color: #ffc107;
+}
+
+/* Stock Indicator */
+.stock-indicator {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.in-stock {
+    background-color: #28a745;
+}
+
+.out-of-stock {
+    background-color: #dc3545;
+}
+
+/* Loading Spinner */
+.spinner {
+    border: 4px solid rgba(45, 106, 79, 0.1);
+    border-left-color: var(--primary-green);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}

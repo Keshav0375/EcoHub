@@ -1,0 +1,16 @@
+{% extends 'eco/base.html' %}
+{% block title %}Add Product - EcoTech Hub{% endblock %}
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <h1>Add Product</h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="mb-3">{{ field.label_tag }} {{ field }}</div>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary">Add Product</button>
+        </form>
+    </div>
+</section>
+{% endblock %}

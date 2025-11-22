@@ -1,0 +1,16 @@
+{% extends 'eco/base.html' %}
+{% block title %}Order History - EcoTech Hub{% endblock %}
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <h1>Order History</h1>
+        {% for order in orders %}
+        <div class="card mb-3">
+            <div class="card-body">
+                <a href="{% url 'order_detail' order.order_number %}">{{ order.order_number }}</a> - ${{ order.total }}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

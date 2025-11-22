@@ -1,0 +1,15 @@
+{% extends 'eco/base.html' %}
+{% block title %}Order Details - EcoTech Hub{% endblock %}
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <h1>Order {{ order.order_number }}</h1>
+        <p><strong>Status:</strong> {{ order.get_status_display }}</p>
+        <p><strong>Total:</strong> ${{ order.total }}</p>
+        <h5 class="mt-4">Items:</h5>
+        {% for item in order.items.all %}
+        <div>{{ item.product.name }} x{{ item.quantity }} - ${{ item.subtotal }}</div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
