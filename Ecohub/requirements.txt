@@ -11,3 +11,12 @@ django-filter
 django-extensions
 gunicorn
 whitenoise
+
+djangorestframework-simplejwt
+mysqlclient
+python-decouple
+django-allauth
+django-crispy-forms
+crispy-bootstrap5
+django-cors-headers
+django-filter
