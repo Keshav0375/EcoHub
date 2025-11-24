@@ -1,0 +1,210 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}EcoTech Hub - Sustainable Technology Marketplace{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="bg-success text-white py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h1 class="display-4 fw-bold mb-4">
+                    <i class="fas fa-leaf me-3"></i>
+                    Sustainable Tech for a Greener Future
+                </h1>
+                <p class="lead mb-4">
+                    Discover eco-friendly technology products from verified sustainable vendors. 
+                    Reduce your carbon footprint while enjoying cutting-edge innovations.
+                </p>
+                <div class="d-flex gap-3">
+                    <a href="{% url 'products:list' %}" class="btn btn-light btn-lg">
+                        <i class="fas fa-shopping-cart me-2"></i>Shop Now
+                    </a>
+                    <a href="{% url 'products:impact_calculator' %}" class="btn btn-outline-light btn-lg">
+                        <i class="fas fa-calculator me-2"></i>Calculate Impact
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="text-center">
+                    <i class="fas fa-globe-americas display-1 text-white-50"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Impact Statistics -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-3">
+                <div class="card border-0 bg-transparent">
+                    <div class="card-body">
+                        <i class="fas fa-bolt text-warning display-4 mb-3"></i>
+                        <h3 class="fw-bold text-success">2.5M kWh</h3>
+                        <p class="text-muted">Energy Saved This Year</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card border-0 bg-transparent">
+                    <div class="card-body">
+                        <i class="fas fa-leaf text-success display-4 mb-3"></i>
+                        <h3 class="fw-bold text-success">1,200 tons</h3>
+                        <p class="text-muted">CO2 Emissions Reduced</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card border-0 bg-transparent">
+                    <div class="card-body">
+                        <i class="fas fa-users text-info display-4 mb-3"></i>
+                        <h3 class="fw-bold text-success">50,000+</h3>
+                        <p class="text-muted">Happy Customers</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card border-0 bg-transparent">
+                    <div class="card-body">
+                        <i class="fas fa-store text-primary display-4 mb-3"></i>
+                        <h3 class="fw-bold text-success">500+</h3>
+                        <p class="text-muted">Verified Vendors</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Categories -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">Shop by Category</h2>
+            <p class="lead text-muted">Find sustainable solutions for every need</p>
+        </div>
+        
+        <div class="row g-4">
+            {% for category in categories %}
+            <div class="col-md-3">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-body text-center">
+                        <i class="fas fa-{{ category.icon|default:'cube' }} text-success display-4 mb-3"></i>
+                        <h5 class="card-title">{{ category.name }}</h5>
+                        <p class="card-text text-muted">{{ category.description|truncatewords:10 }}</p>
+                        <a href="{% url 'products:list' %}?category={{ category.id }}" class="btn btn-outline-success">
+                            Explore Products
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center">
+                <p class="text-muted">No categories available yet.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Featured Products -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">Featured Products</h2>
+            <p class="lead text-muted">Top-rated eco-friendly technology products</p>
+        </div>
+        
+        <div class="row g-4">
+            {% for product in featured_products %}
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="position-relative">
+                        {% if product.images.first %}
+                            <img src="{{ product.images.first.image.url }}" class="card-img-top" alt="{{ product.images.first.alt_text }}" style="height: 250px; object-fit: cover;">
+                        {% else %}
+                            <div class="bg-light d-flex align-items-center justify-content-center" style="height: 250px;">
+                                <i class="fas fa-image text-muted display-4"></i>
+                            </div>
+                        {% endif %}
+                        
+                        {% if product.energy_efficiency_rating %}
+                        <span class="badge bg-success position-absolute top-0 end-0 m-3">
+                            {{ product.energy_efficiency_rating }}
+                        </span>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">{{ product.name }}</h5>
+                        <p class="card-text text-muted flex-grow-1">{{ product.description|truncatewords:15 }}</p>
+                        
+                        <div class="mt-auto">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div>
+                                    {% if product.discounted_price %}
+                                        <span class="h5 text-success fw-bold">${{ product.discounted_price }}</span>
+                                        <span class="text-decoration-line-through text-muted">${{ product.price }}</span>
+                                    {% else %}
+                                        <span class="h5 text-success fw-bold">${{ product.price }}</span>
+                                    {% endif %}
+                                </div>
+                                <small class="text-muted">{{ product.vendor.company_name }}</small>
+                            </div>
+                            
+                            <div class="row mb-3">
+                                <div class="col-6">
+                                    <small class="text-muted">Energy Rating:</small>
+                                    <div class="text-success fw-bold">{{ product.energy_efficiency_rating }}</div>
+                                </div>
+                                <div class="col-6">
+                                    <small class="text-muted">Carbon Footprint:</small>
+                                    <div class="text-success fw-bold">{{ product.carbon_footprint }} kg/year</div>
+                                </div>
+                            </div>
+                            
+                            <a href="{% url 'products:detail' product.slug %}" class="btn btn-success w-100">
+                                View Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center">
+                <p class="text-muted">No featured products available yet.</p>
+                <a href="{% url 'products:list' %}" class="btn btn-success">Browse All Products</a>
+            </div>
+            {% endfor %}
+        </div>
+        
+        {% if featured_products %}
+        <div class="text-center mt-5">
+            <a href="{% url 'products:list' %}" class="btn btn-outline-success btn-lg">
+                View All Products
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-5 bg-success text-white">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h3 class="fw-bold mb-2">Ready to Make a Difference?</h3>
+                <p class="mb-0">Join thousands of eco-conscious consumers making sustainable choices every day.</p>
+            </div>
+            <div class="col-lg-4 text-end">
+                <a href="{% url 'vendors:become_vendor' %}" class="btn btn-light btn-lg">
+                    <i class="fas fa-handshake me-2"></i>Become a Vendor
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

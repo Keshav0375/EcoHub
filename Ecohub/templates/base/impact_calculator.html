@@ -1,0 +1,235 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Environmental Impact Calculator - EcoTech Hub{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="text-center mb-5">
+                <h1 class="fw-bold text-success">
+                    <i class="fas fa-calculator me-3"></i>
+                    Environmental Impact Calculator
+                </h1>
+                <p class="lead text-muted">Calculate your potential environmental savings with sustainable technology</p>
+            </div>
+
+            <div class="card border-0 shadow">
+                <div class="card-body p-5">
+                    <form id="impact-calculator-form">
+                        <div class="row g-4">
+                            <!-- Current Device Info -->
+                            <div class="col-12">
+                                <h5 class="text-success mb-3">
+                                    <i class="fas fa-info-circle me-2"></i>
+                                    Current Device Information
+                                </h5>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <label class="form-label">Device Type</label>
+                                <select class="form-select" id="device-type" required>
+                                    <option value="">Select device type</option>
+                                    <option value="laptop">Laptop</option>
+                                    <option value="desktop">Desktop Computer</option>
+                                    <option value="refrigerator">Refrigerator</option>
+                                    <option value="washing_machine">Washing Machine</option>
+                                    <option value="air_conditioner">Air Conditioner</option>
+                                    <option value="led_bulbs">LED Light Bulbs</option>
+                                    <option value="smart_thermostat">Smart Thermostat</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">Hours Used Daily</label>
+                                <input type="number" class="form-control" id="hours-daily" min="1" max="24" required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">Current Energy Consumption (kWh/year)</label>
+                                <input type="number" class="form-control" id="current-consumption" step="0.1" required>
+                                <small class="form-text text-muted">Check your electricity bill or device specifications</small>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">Electricity Rate ($/kWh)</label>
+                                <input type="number" class="form-control" id="electricity-rate" value="0.12" step="0.01" required>
+                                <small class="form-text text-muted">Average US rate is $0.12/kWh</small>
+                            </div>
+
+                            <!-- Upgrade Options -->
+                            <div class="col-12 mt-5">
+                                <h5 class="text-success mb-3">
+                                    <i class="fas fa-upgrade me-2"></i>
+                                    Sustainable Upgrade
+                                </h5>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">New Energy Efficiency Rating</label>
+                                <select class="form-select" id="efficiency-rating" required>
+                                    <option value="">Select rating</option>
+                                    <option value="A++">A++ (Most Efficient)</option>
+                                    <option value="A+">A+</option>
+                                    <option value="A">A</option>
+                                    <option value="B">B</option>
+                                    <option value="C">C</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">Expected Energy Reduction (%)</label>
+                                <input type="number" class="form-control" id="energy-reduction" min="0" max="90" required>
+                                <small class="form-text text-muted">Typical range: 20-70%</small>
+                            </div>
+
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-success btn-lg w-100">
+                                    <i class="fas fa-calculator me-2"></i>
+                                    Calculate My Environmental Impact
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Results Section -->
+            <div id="results-section" class="card border-0 shadow mt-4" style="display: none;">
+                <div class="card-body p-5">
+                    <h4 class="text-success text-center mb-4">
+                        <i class="fas fa-leaf me-2"></i>Your Environmental Impact
+                    </h4>
+                    
+                    <div class="row g-4" id="results-content">
+                        <!-- Results will be populated here -->
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <a href="{% url 'products:list' %}" class="btn btn-success">
+                            <i class="fas fa-shopping-cart me-2"></i>
+                            Shop Eco-Friendly Products
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('impact-calculator-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Get form values
+    const deviceType = document.getElementById('device-type').value;
+    const hoursDaily = parseFloat(document.getElementById('hours-daily').value);
+    const currentConsumption = parseFloat(document.getElementById('current-consumption').value);
+    const electricityRate = parseFloat(document.getElementById('electricity-rate').value);
+    const efficiencyRating = document.getElementById('efficiency-rating').value;
+    const energyReduction = parseFloat(document.getElementById('energy-reduction').value);
+    
+    // Calculate savings
+    const annualEnergyReduction = currentConsumption * (energyReduction / 100);
+    const newAnnualConsumption = currentConsumption - annualEnergyReduction;
+    const annualCostSavings = annualEnergyReduction * electricityRate;
+    const monthlyCostSavings = annualCostSavings / 12;
+    
+    // Calculate CO2 reduction (assuming average grid emission factor)
+    const co2EmissionFactor = 0.92; // lbs CO2 per kWh (US average)
+    const annualCO2Reduction = annualEnergyReduction * co2EmissionFactor;
+    const co2ReductionKg = annualCO2Reduction * 0.453592; // Convert lbs to kg
+    
+    // Calculate equivalent impact
+    const treesEquivalent = Math.round(co2ReductionKg / 21.77); // Average CO2 absorption per tree per year
+    const carMilesEquivalent = Math.round(co2ReductionKg / 0.404); // kg CO2 per mile driven
+    
+    // Display results
+    const resultsContent = document.getElementById('results-content');
+    resultsContent.innerHTML = `
+        <div class="col-lg-6">
+            <div class="card bg-light border-success h-100">
+                <div class="card-body text-center">
+                    <i class="fas fa-bolt display-4 text-warning mb-3"></i>
+                    <h5 class="text-success">Energy Savings</h5>
+                    <h3 class="text-success fw-bold">${annualEnergyReduction.toFixed(1)} kWh</h3>
+                    <p class="text-muted">per year</p>
+                    <small class="text-success">
+                        From ${currentConsumption} kWh to ${newAnnualConsumption.toFixed(1)} kWh annually
+                    </small>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-6">
+            <div class="card bg-light border-success h-100">
+                <div class="card-body text-center">
+                    <i class="fas fa-dollar-sign display-4 text-success mb-3"></i>
+                    <h5 class="text-success">Cost Savings</h5>
+                    <h3 class="text-success fw-bold">$${annualCostSavings.toFixed(0)}</h3>
+                    <p class="text-muted">per year</p>
+                    <small class="text-success">
+                        $${monthlyCostSavings.toFixed(0)} per month
+                    </small>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-6">
+            <div class="card bg-light border-success h-100">
+                <div class="card-body text-center">
+                    <i class="fas fa-leaf display-4 text-success mb-3"></i>
+                    <h5 class="text-success">CO2 Reduction</h5>
+                    <h3 class="text-success fw-bold">${co2ReductionKg.toFixed(0)} kg</h3>
+                    <p class="text-muted">per year</p>
+                    <small class="text-success">
+                        Equivalent to planting ${treesEquivalent} trees
+                    </small>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-6">
+            <div class="card bg-light border-success h-100">
+                <div class="card-body text-center">
+                    <i class="fas fa-car display-4 text-info mb-3"></i>
+                    <h5 class="text-success">Equivalent Impact</h5>
+                    <h3 class="text-success fw-bold">${carMilesEquivalent.toLocaleString()}</h3>
+                    <p class="text-muted">miles not driven</p>
+                    <small class="text-success">
+                        Environmental benefit equivalent
+                    </small>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    // Show results section
+    document.getElementById('results-section').style.display = 'block';
+    document.getElementById('results-section').scrollIntoView({ behavior: 'smooth' });
+});
+
+// Auto-fill energy consumption based on device type
+document.getElementById('device-type').addEventListener('change', function() {
+    const deviceType = this.value;
+    const consumptionInput = document.getElementById('current-consumption');
+    const reductionInput = document.getElementById('energy-reduction');
+    
+    const deviceDefaults = {
+        'laptop': { consumption: 150, reduction: 30 },
+        'desktop': { consumption: 400, reduction: 40 },
+        'refrigerator': { consumption: 600, reduction: 25 },
+        'washing_machine': { consumption: 400, reduction: 35 },
+        'air_conditioner': { consumption: 2000, reduction: 50 },
+        'led_bulbs': { consumption: 50, reduction: 80 },
+        'smart_thermostat': { consumption: 100, reduction: 20 }
+    };
+    
+    if (deviceDefaults[deviceType]) {
+        consumptionInput.value = deviceDefaults[deviceType].consumption;
+        reductionInput.value = deviceDefaults[deviceType].reduction;
+    }
+});
+</script>
+{% endblock %}

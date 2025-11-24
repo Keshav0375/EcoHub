@@ -1,0 +1,262 @@
+/* Main CSS for EcoHub */
+
+:root {
+    --primary-green: #198754;
+    --light-green: #d1e7dd;
+    --dark-green: #146c43;
+    --warning-yellow: #ffc107;
+    --info-blue: #0dcaf0;
+    --light-gray: #f8f9fa;
+    --border-radius: 0.375rem;
+}
+
+/* Global Styles */
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+    color: #333;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+}
+
+/* Card Hover Effects */
+.card-hover {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-hover:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+/* Product Cards */
+.product-card {
+    transition: all 0.3s ease;
+    border: none;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+}
+
+.product-card .card-img-top {
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover .card-img-top {
+    transform: scale(1.05);
+}
+
+/* Badges and Labels */
+.badge-energy {
+    background: linear-gradient(45deg, var(--primary-green), var(--dark-green));
+}
+
+.badge-certification {
+    background: linear-gradient(45deg, var(--warning-yellow), #ff8c00);
+    color: #333;
+}
+
+/* Environmental Impact Section */
+.impact-stat {
+    background: linear-gradient(135deg, var(--light-green), #ffffff);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    text-align: center;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.impact-stat:hover {
+    border-color: var(--primary-green);
+    transform: translateY(-5px);
+}
+
+.impact-stat .icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(45deg, var(--primary-green), var(--dark-green));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Category Cards */
+.category-card {
+    background: white;
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 1px solid #e9ecef;
+    height: 100%;
+}
+
+.category-card:hover {
+    border-color: var(--primary-green);
+    background: var(--light-green);
+}
+
+.category-icon {
+    font-size: 2.5rem;
+    color: var(--primary-green);
+    margin-bottom: 1rem;
+}
+
+/* Hero Section */
+.hero-section {
+    background: linear-gradient(135deg, var(--primary-green), var(--dark-green));
+    color: white;
+    padding: 5rem 0;
+}
+
+/* Buttons */
+.btn-eco {
+    background: linear-gradient(45deg, var(--primary-green), var(--dark-green));
+    border: none;
+    color: white;
+    padding: 0.75rem 2rem;
+    border-radius: var(--border-radius);
+    transition: all 0.3s ease;
+}
+
+.btn-eco:hover {
+    background: linear-gradient(45deg, var(--dark-green), var(--primary-green));
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    color: white;
+}
+
+/* Footer */
+footer {
+    background: #212529;
+    color: #ffffff;
+}
+
+footer a {
+    color: #adb5bd;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: var(--primary-green);
+}
+
+/* Forms */
+.form-control:focus {
+    border-color: var(--primary-green);
+    box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.25);
+}
+
+.form-select:focus {
+    border-color: var(--primary-green);
+    box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.25);
+}
+
+/* Rating Stars */
+.rating-stars {
+    color: var(--warning-yellow);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 3rem 0;
+    }
+    
+    .hero-section h1 {
+        font-size: 2rem;
+    }
+    
+    .impact-stat {
+        padding: 1.5rem;
+    }
+}
+
+/* Loading States */
+.loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.spinner-border-sm {
+    width: 1rem;
+    height: 1rem;
+}
+
+/* Utility Classes */
+.text-gradient {
+    background: linear-gradient(45deg, var(--primary-green), var(--dark-green));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.border-eco {
+    border-color: var(--primary-green) !important;
+}
+
+.bg-eco-light {
+    background-color: var(--light-green) !important;
+}
+
+/* Navigation Active State */
+.navbar-nav .nav-link.active {
+    color: var(--warning-yellow) !important;
+    font-weight: 600;
+}
+
+/* Product Detail Page */
+.product-gallery img {
+    border-radius: var(--border-radius);
+    transition: transform 0.3s ease;
+}
+
+.product-gallery img:hover {
+    transform: scale(1.02);
+}
+
+.environmental-metrics {
+    background: var(--light-green);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+}
+
+.environmental-metrics .metric {
+    text-align: center;
+    padding: 1rem;
+}
+
+.environmental-metrics .metric-value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-green);
+}
+
+.environmental-metrics .metric-label {
+    font-size: 0.875rem;
+    color: #6c757d;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
