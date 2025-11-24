@@ -113,7 +113,7 @@ class FeaturedProductsView(generics.ListAPIView):
 def home_view(request):
     featured_products = Product.objects.filter(is_featured=True, is_active=True)[:6]
     categories = Category.objects.all()[:8]
-    return render(request, 'products/home.html', {
+    return render(request, 'base/home.html', {
         'featured_products': featured_products,
         'categories': categories,
     })
@@ -121,7 +121,7 @@ def home_view(request):
 def product_list_view(request):
     products = Product.objects.filter(is_active=True)
     categories = Category.objects.all()
-    return render(request, 'products/product_list.html', {
+    return render(request, 'base/product_list.html', {
         'products': products,
         'categories': categories,
     })
@@ -129,14 +129,14 @@ def product_list_view(request):
 def product_detail_view(request, slug):
     product = get_object_or_404(Product, slug=slug, is_active=True)
     related_products = Product.objects.filter(
-        category=product.category, 
+        category=product.category,
         is_active=True
     ).exclude(id=product.id)[:4]
-    
-    return render(request, 'products/product_detail.html', {
+
+    return render(request, 'base/product_detail.html', {
         'product': product,
         'related_products': related_products,
     })
 
 def impact_calculator_view(request):
-    return render(request, 'products/impact_calculator.html')
+    return render(request, 'base/impact_calculator.html')

@@ -18,10 +18,10 @@
                     Reduce your carbon footprint while enjoying cutting-edge innovations.
                 </p>
                 <div class="d-flex gap-3">
-                    <a href="{% url 'products:list' %}" class="btn btn-light btn-lg">
+                    <a href="{% url 'product-list' %}" class="btn btn-light btn-lg">
                         <i class="fas fa-shopping-cart me-2"></i>Shop Now
                     </a>
-                    <a href="{% url 'products:impact_calculator' %}" class="btn btn-outline-light btn-lg">
+                    <a href="{% url 'impact-calculator' %}" class="btn btn-outline-light btn-lg">
                         <i class="fas fa-calculator me-2"></i>Calculate Impact
                     </a>
                 </div>
@@ -95,7 +95,7 @@
                         <i class="fas fa-{{ category.icon|default:'cube' }} text-success display-4 mb-3"></i>
                         <h5 class="card-title">{{ category.name }}</h5>
                         <p class="card-text text-muted">{{ category.description|truncatewords:10 }}</p>
-                        <a href="{% url 'products:list' %}?category={{ category.id }}" class="btn btn-outline-success">
+                        <a href="{% url 'product-list' %}?category={{ category.id }}" class="btn btn-outline-success">
                             Explore Products
                         </a>
                     </div>
@@ -166,7 +166,7 @@
                                 </div>
                             </div>
                             
-                            <a href="{% url 'products:detail' product.slug %}" class="btn btn-success w-100">
+                            <a href="{% url 'product-detail' product.slug %}" class="btn btn-success w-100">
                                 View Details
                             </a>
                         </div>
@@ -176,14 +176,14 @@
             {% empty %}
             <div class="col-12 text-center">
                 <p class="text-muted">No featured products available yet.</p>
-                <a href="{% url 'products:list' %}" class="btn btn-success">Browse All Products</a>
+                <a href="{% url 'product-list' %}" class="btn btn-success">Browse All Products</a>
             </div>
             {% endfor %}
         </div>
-        
+
         {% if featured_products %}
         <div class="text-center mt-5">
-            <a href="{% url 'products:list' %}" class="btn btn-outline-success btn-lg">
+            <a href="{% url 'product-list' %}" class="btn btn-outline-success btn-lg">
                 View All Products
             </a>
         </div>
@@ -200,7 +200,7 @@
                 <p class="mb-0">Join thousands of eco-conscious consumers making sustainable choices every day.</p>
             </div>
             <div class="col-lg-4 text-end">
-                <a href="{% url 'vendors:become_vendor' %}" class="btn btn-light btn-lg">
+                <a href="#" class="btn btn-light btn-lg">
                     <i class="fas fa-handshake me-2"></i>Become a Vendor
                 </a>
             </div>

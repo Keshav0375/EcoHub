@@ -9,14 +9,8 @@ router.register(r'categories', views.CategoryViewSet, basename='category')
 app_name = 'products'
 
 urlpatterns = [
-    # Web views
-    path('', views.home_view, name='home'),
-    path('products/', views.product_list_view, name='list'),
-    path('products/<slug:slug>/', views.product_detail_view, name='detail'),
-    path('impact-calculator/', views.impact_calculator_view, name='impact_calculator'),
-    
-    # API endpoints
-    path('api/', include(router.urls)),
-    path('api/search/', views.ProductSearchView.as_view(), name='search'),
-    path('api/featured/', views.FeaturedProductsView.as_view(), name='featured'),
+    # API endpoints only
+    path('', include(router.urls)),
+    path('search/', views.ProductSearchView.as_view(), name='search'),
+    path('featured/', views.FeaturedProductsView.as_view(), name='featured'),
 ]

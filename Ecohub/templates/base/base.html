@@ -30,13 +30,13 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'products:list' %}">Products</a>
+                        <a class="nav-link" href="{% url 'product-list' %}">Products</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'vendors:list' %}">Vendors</a>
+                        <a class="nav-link" href="#" onclick="alert('Vendors page coming soon!')">Vendors</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'impact_calculator' %}">Impact Calculator</a>
+                        <a class="nav-link" href="{% url 'impact-calculator' %}">Impact Calculator</a>
                     </li>
                 </ul>
                 
@@ -47,20 +47,20 @@
                                 <i class="fas fa-user me-1"></i>{{ user.username }}
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{% url 'accounts:profile' %}">Profile</a></li>
+                                <li><a class="dropdown-item" href="/api/auth/profile/">Profile</a></li>
                                 {% if user.user_type == 'vendor' %}
-                                    <li><a class="dropdown-item" href="{% url 'vendors:dashboard' %}">Vendor Dashboard</a></li>
+                                    <li><a class="dropdown-item" href="#" onclick="alert('Vendor dashboard coming soon!')">Vendor Dashboard</a></li>
                                 {% endif %}
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="{% url 'accounts:logout' %}">Logout</a></li>
+                                <li><a class="dropdown-item" href="/api/auth/logout/">Logout</a></li>
                             </ul>
                         </li>
                     {% else %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'accounts:login' %}">Login</a>
+                            <a class="nav-link" href="/api/auth/login/">Login</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link btn btn-outline-light ms-2" href="{% url 'accounts:register' %}">Register</a>
+                            <a class="nav-link btn btn-outline-light ms-2" href="/api/auth/register/">Register</a>
                         </li>
                     {% endif %}
                 </ul>
@@ -95,9 +95,9 @@
                 <div class="col-md-4">
                     <h6>Quick Links</h6>
                     <ul class="list-unstyled">
-                        <li><a href="{% url 'about' %}" class="text-light text-decoration-none">About Us</a></li>
-                        <li><a href="{% url 'vendors:become_vendor' %}" class="text-light text-decoration-none">Become a Vendor</a></li>
-                        <li><a href="{% url 'sustainability' %}" class="text-light text-decoration-none">Sustainability</a></li>
+                        <li><a href="#" class="text-light text-decoration-none">About Us</a></li>
+                        <li><a href="#" class="text-light text-decoration-none">Become a Vendor</a></li>
+                        <li><a href="#" class="text-light text-decoration-none">Sustainability</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4">
