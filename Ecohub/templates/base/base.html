@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>{% block title %}EcoTech Hub - Sustainable Technology Marketplace{% endblock %}</title>
-    
+
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -33,7 +36,7 @@
                         <a class="nav-link" href="{% url 'product-list' %}">Products</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" onclick="alert('Vendors page coming soon!')">Vendors</a>
+                        <a class="nav-link" href="{% url 'vendor-list' %}">Vendors</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'impact-calculator' %}">Impact Calculator</a>
@@ -47,20 +50,20 @@
                                 <i class="fas fa-user me-1"></i>{{ user.username }}
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="/api/auth/profile/">Profile</a></li>
+                                <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
                                 {% if user.user_type == 'vendor' %}
-                                    <li><a class="dropdown-item" href="#" onclick="alert('Vendor dashboard coming soon!')">Vendor Dashboard</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'vendor-dashboard' %}">Vendor Dashboard</a></li>
                                 {% endif %}
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="/api/auth/logout/">Logout</a></li>
+                                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
                             </ul>
                         </li>
                     {% else %}
                         <li class="nav-item">
-                            <a class="nav-link" href="/api/auth/login/">Login</a>
+                            <a class="nav-link" href="{% url 'login' %}">Login</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link btn btn-outline-light ms-2" href="/api/auth/register/">Register</a>
+                            <a class="nav-link btn btn-outline-light ms-2" href="{% url 'register' %}">Register</a>
                         </li>
                     {% endif %}
                 </ul>

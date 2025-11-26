@@ -2,9 +2,15 @@ from rest_framework import serializers
 from .models import Product, Category, ProductImage
 
 class ProductImageSerializer(serializers.ModelSerializer):
+    image_url_display = serializers.SerializerMethodField()
+
     class Meta:
         model = ProductImage
-        fields = ['id', 'image', 'alt_text', 'is_primary']
+        fields = ['id', 'image', 'image_url', 'image_url_display', 'alt_text', 'is_primary']
+
+    def get_image_url_display(self, obj):
+        """Return the actual image URL to use (file or direct URL)"""
+        return obj.get_image_url()
 
 class CategorySerializer(serializers.ModelSerializer):
     product_count = serializers.SerializerMethodField()

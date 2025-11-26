@@ -63,10 +63,17 @@ class Product(models.Model):
 
 class ProductImage(models.Model):
     product = models.ForeignKey(Product, related_name='images', on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='products/')
+    image = models.ImageField(upload_to='products/', blank=True, null=True)
+    image_url = models.URLField(max_length=500, blank=True, null=True, help_text="Direct image URL (alternative to file upload)")
     alt_text = models.CharField(max_length=200)
     is_primary = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"Image for {self.product.name}"
+
+    def get_image_url(self):
+        """Return image URL - either from uploaded file or direct URL"""
+        if self.image:
+            return self.image.url
+        return self.image_url or 'https://via.placeholder.com/400x300?text=No+Image'

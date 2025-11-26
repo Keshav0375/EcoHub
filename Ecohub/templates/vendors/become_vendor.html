@@ -1,0 +1,47 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Become a Vendor - EcoTech Hub{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1 class="text-center mb-4">Become a Vendor</h1>
+
+            <div class="card shadow-sm">
+                <div class="card-body p-5">
+                    <h4>Join Our Sustainable Marketplace</h4>
+                    <p class="text-muted">Apply to become a verified vendor and reach thousands of eco-conscious customers.</p>
+
+                    <h5 class="mt-4">Benefits:</h5>
+                    <ul>
+                        <li>Access to a dedicated eco-conscious customer base</li>
+                        <li>Verified vendor badge for trust and credibility</li>
+                        <li>Analytics dashboard to track your impact</li>
+                        <li>Marketing support for sustainable products</li>
+                    </ul>
+
+                    <h5 class="mt-4">Requirements:</h5>
+                    <ul>
+                        <li>Valid business license</li>
+                        <li>Commitment to sustainable practices</li>
+                        <li>Environmental certifications (preferred)</li>
+                        <li>Quality assurance standards</li>
+                    </ul>
+
+                    <div class="alert alert-info mt-4">
+                        <i class="fas fa-info-circle"></i> To apply, please use the API endpoint:
+                        <code>POST /api/vendors/api/apply/</code> with your vendor details.
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <a href="/api/vendors/" class="btn btn-success btn-lg">
+                            View API Documentation
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

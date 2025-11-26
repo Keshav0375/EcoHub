@@ -8,8 +8,8 @@
     <!-- Breadcrumb -->
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{% url 'products:home' %}">Home</a></li>
-            <li class="breadcrumb-item"><a href="{% url 'products:list' %}">Products</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'product-list' %}">Products</a></li>
             <li class="breadcrumb-item active">{{ product.name }}</li>
         </ol>
     </nav>
@@ -23,7 +23,7 @@
                         <div class="carousel-inner rounded">
                             {% for image in product.images.all %}
                             <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                                <img src="{{ image.image.url }}" class="d-block w-100" 
+                                <img src="{{ image.get_image_url }}" class="d-block w-100"
                                      alt="{{ image.alt_text }}" style="height: 400px; object-fit: cover;">
                             </div>
                             {% endfor %}
@@ -73,7 +73,7 @@
                             <span class="h3 text-success fw-bold me-3">${{ product.discounted_price }}</span>
                             <span class="h5 text-decoration-line-through text-muted">${{ product.price }}</span>
                             <span class="badge bg-danger ms-2">
-                                {% widthratio product.price|floatformat:0|sub:product.discounted_price|floatformat:0 product.price|floatformat:0 100 %}% OFF
+                                {{ discount_percentage }}% OFF
                             </span>
                         </div>
                     {% else %}
@@ -219,7 +219,7 @@
                                     <div class="card-body text-center">
                                         <h6>Calculate Your Savings</h6>
                                         <p class="small text-muted">See how much you can save with this eco-friendly product</p>
-                                        <a href="{% url 'products:impact_calculator' %}" class="btn btn-outline-success btn-sm">
+                                        <a href="{% url 'impact-calculator' %}" class="btn btn-outline-success btn-sm">
                                             <i class="fas fa-calculator me-2"></i>Calculate Impact
                                         </a>
                                     </div>
@@ -357,7 +357,7 @@
                                 {% endif %}
                                 
                                 <div class="mt-3">
-                                    <a href="{% url 'vendors:detail' product.vendor.pk %}" class="btn btn-outline-success">
+                                    <a href="{% url 'vendor-detail' product.vendor.pk %}" class="btn btn-outline-success">
                                         View Vendor Profile
                                     </a>
                                 </div>
@@ -379,8 +379,8 @@
                 <div class="col-md-3">
                     <div class="card h-100 shadow-sm border-0">
                         {% if related_product.images.first %}
-                            <img src="{{ related_product.images.first.image.url }}" 
-                                 class="card-img-top" alt="{{ related_product.images.first.alt_text }}" 
+                            <img src="{{ related_product.images.first.get_image_url }}"
+                                 class="card-img-top" alt="{{ related_product.images.first.alt_text }}"
                                  style="height: 150px; object-fit: cover;">
                         {% else %}
                             <div class="bg-light d-flex align-items-center justify-content-center" style="height: 150px;">
@@ -392,7 +392,7 @@
                             <h6 class="card-title">{{ related_product.name|truncatechars:40 }}</h6>
                             <div class="mt-auto">
                                 <div class="text-success fw-bold">${{ related_product.final_price }}</div>
-                                <a href="{% url 'products:detail' related_product.slug %}" class="btn btn-outline-success btn-sm mt-2">
+                                <a href="{% url 'product-detail' related_product.slug %}" class="btn btn-outline-success btn-sm mt-2">
                                     View Details
                                 </a>
                             </div>

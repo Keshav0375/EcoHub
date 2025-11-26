@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from django.db.models import Q, Avg
+from django.db.models import Q, Avg, Count
 from rest_framework import viewsets, filters, status, generics
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -120,7 +120,47 @@ def home_view(request):
 
 def product_list_view(request):
     products = Product.objects.filter(is_active=True)
-    categories = Category.objects.all()
+
+    # Annotate categories with product count
+    categories = Category.objects.annotate(
+        product_count=Count('products', filter=Q(products__is_active=True))
+    )
+
+    # Apply filters
+    category_filter = request.GET.getlist('category')
+    if category_filter:
+        products = products.filter(category__id__in=category_filter)
+
+    price_min = request.GET.get('price_min')
+    if price_min:
+        products = products.filter(price__gte=price_min)
+
+    price_max = request.GET.get('price_max')
+    if price_max:
+        products = products.filter(price__lte=price_max)
+
+    energy_efficiency = request.GET.get('energy_efficiency')
+    if energy_efficiency:
+        products = products.filter(energy_efficiency_rating=energy_efficiency)
+
+    certification = request.GET.get('certification')
+    if certification:
+        products = products.filter(certifications=certification)
+
+    search = request.GET.get('search')
+    if search:
+        products = products.filter(
+            Q(name__icontains=search) |
+            Q(description__icontains=search)
+        )
+
+    # Apply ordering
+    ordering = request.GET.get('ordering', '-created_at')
+    if ordering in ['price', '-price', 'energy_efficiency_rating',
+                    '-energy_efficiency_rating', 'carbon_footprint',
+                    '-carbon_footprint', '-created_at']:
+        products = products.order_by(ordering)
+
     return render(request, 'base/product_list.html', {
         'products': products,
         'categories': categories,
@@ -133,9 +173,15 @@ def product_detail_view(request, slug):
         is_active=True
     ).exclude(id=product.id)[:4]
 
+    # Calculate discount percentage
+    discount_percentage = 0
+    if product.discounted_price and product.price:
+        discount_percentage = int(((product.price - product.discounted_price) / product.price) * 100)
+
     return render(request, 'base/product_detail.html', {
         'product': product,
         'related_products': related_products,
+        'discount_percentage': discount_percentage,
     })
 
 def impact_calculator_view(request):

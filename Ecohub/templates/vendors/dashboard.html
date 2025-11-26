@@ -1,0 +1,49 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Vendor Dashboard - EcoTech Hub{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Vendor Dashboard</h1>
+    <p>Welcome, {{ vendor.company_name }}!</p>
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h3>{{ vendor.products.count }}</h3>
+                    <p class="text-muted">Products</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h3>${{ vendor.total_sales }}</h3>
+                    <p class="text-muted">Total Sales</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h3>{{ vendor.rating }}</h3>
+                    <p class="text-muted">Rating</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h3>{{ vendor.eco_impact_score|floatformat:1 }}</h3>
+                    <p class="text-muted">Eco Score</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="alert alert-info mt-4">
+        <i class="fas fa-info-circle"></i> Use the API endpoints at <code>/api/vendors/</code> to manage your products and profile.
+    </div>
+</div>
+{% endblock %}
